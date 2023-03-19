@@ -1,0 +1,74 @@
+here 3/17
+don't bother with the 'Makefile'
+
+https://knowledge.udacity.com/questions/945762
+https://circleci.com/docs/reusing-config/
+
+Canonical, Ubuntu, 22.04 LTS, amd64 jammy image build on 2023-02-08
+ami-0557a15b87f6559cf
+
+elastic IP:
+eipalloc-0d47f3704a38f1cd0
+44.215.37.104
+ec2-44-215-37-104.compute-1.amazonaws.com
+
+
+.circleci/config.yml >> Makefile >> Docker
+
+
+
+git add . && git commit -m "klsjdf" && git push origin master
+
+##############################
+powershell
+##############################
+
+Run 
+Get-ExecutionPolicy
+If it returns Restricted, then run 
+Set-ExecutionPolicy AllSigned or 
+Set-ExecutionPolicy Bypass -Scope Process
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+We are setting up the Chocolatey package repository.
+The packages themselves go to 'C:\ProgramData\chocolatey\lib'
+  (i.e. C:\ProgramData\chocolatey\lib\yourPackageName).
+A shim file for the command line goes to 'C:\ProgramData\chocolatey\bin'
+  and points to an executable in 'C:\ProgramData\chocolatey\lib\yourPackageName'.
+
+C:\ProgramData\chocolatey\lib\circleci-cli\tools
+Environment Vars (like PATH) have changed. Close/reopen your shell to
+ see the changes (or in powershell/cmd.exe just type `refreshenv`).
+
+
+Navigate to a directory with a.circleci/config.yml file
+run
+circleci config validate
+
+
+##############################
+docker commands
+##############################
+docker images 
+
+docker build -t my-image:latest .
+
+
+docker rmi my-image:latest
+
+#stop a container
+docker stop container-id
+
+docker ps -a
+docker rm container-id
+
+docker run -p 8080:80 my-image
+
+# Docker container in the background (i.e., as a detached process), 
+you can use the -d or --detach option when running the docker run command
+docker run -d -p 4444:80 dtest
+
+# look at files INSIDE the container
+sudo docker run dtest ls -ls 
+sudo docker run dtest ls -ls /usr/local/lib

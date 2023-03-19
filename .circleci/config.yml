@@ -1,0 +1,178 @@
+version: 2.1
+
+executors:
+  docker-executor:
+    docker:
+      - image: circleci/python:3.7
+
+# so, there will be a 'virtual machine' running in side circleci
+# .circleci\config.yml >> Makefile
+
+commands:
+  
+  # this is like a 're-useable function'
+  # https://circleci.com/docs/reusing-config/
+  echo_stuff:
+    parameters:
+      input1:
+        default: ">>>>>>>>>> put something here <<<<<<<<<<<<<<<<"
+        type: string
+    steps:
+      - run: echo "<< parameters.input1 >>"
+          
+          
+
+
+# a reusable 'docker thing' 
+orbs:
+  docker: circleci/docker@1.5.0
+
+jobs:
+  Init:
+    docker:
+      - image: python:3.7.4
+    
+    steps:
+      # 'download' the code from github into the 'virtual machine' in circleci
+      - checkout
+      - restore_cache:
+          keys: 
+            # use the 'saved stuff' in the 'cache' if the 'checksum' of the 'requirements.txt' is the same
+            - v1-dependencies-{{ checksum "hello_app/requirements.txt" }}
+          
+          if: |
+            # Check if cache exists and is not expired
+            steps.cache_setup.outputs.cache-found == 'true'
+            ls -la $HOME/.cache/
+
+
+      # - run:
+          # name: View contents of cache
+          # command: |
+            # ls -la $HOME/.cache/   
+
+      
+      - echo_stuff:
+          input1: "testing testing testing testing testing testing testing"
+
+      - run:
+          name: Creating virtual environment and activating it
+          command: |
+            python3 -m venv .devops-capstone            
+
+
+      - run:
+          name: Install Shellcheck
+          # echo "${VERSION} <<< so this is how you echo inside circleci, not $VERSION"
+          command: |    
+            source .devops-capstone/bin/activate      
+
+            if [ -n "$VIRTUAL_ENV" ]; then
+              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
+            else
+              echo "Virtual environment is not activated."
+              exit 1
+            fi
+
+
+            chmod +x ./bin/install_shellcheck.sh
+            make install
+            echo "============================="      
+            
+      
+          # make install  
+          # 'make install' is a 'make' command in the 'Makefile' file running the 'install section'
+          # these 2 lines work, but i'm not gonna use them
+          # Makefile >> install
+          # let don't use the 'make command'
+      
+      - run: 
+          name: Looking at stuff in Bin folder
+          command: |
+            source .devops-capstone/bin/activate
+
+            echo "pwd $(pwd)"
+            echo "ls $(ls -la)"
+            cd ./bin
+            echo "pwd $(pwd)"
+            echo "ls $(ls -la)"
+            cd ..
+            cd hello_app
+            echo "pwd $(pwd)"
+            echo "ls $(ls -la)"
+            echo "why is this not working?"
+
+
+      - run:
+          name: Linting ALL the shell scripts in the 'bin' folder
+          command: |
+            source .devops-capstone/bin/activate      
+
+            if [ -n "$VIRTUAL_ENV" ]; then
+              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
+            else
+              echo "Virtual environment is not activated."
+              exit 1
+            fi
+
+            pwd
+            ./bin/shellcheck -Cauto -a ./bin/*.sh
+
+      - run:
+          name: Install Hadolint
+          command: |
+            source .devops-capstone/bin/activate      
+
+            if [ -n "$VIRTUAL_ENV" ]; then
+              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
+            else
+              echo "Virtual environment is not activated."
+              exit 1
+            fi
+
+            chmod +x ./bin/install_hadolint.sh
+            sh ./bin/install_hadolint.sh
+
+      - run:
+          name: Install kubectl
+          command: |
+            source .devops-capstone/bin/activate      
+
+            if [ -n "$VIRTUAL_ENV" ]; then
+              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
+            else
+              echo "Virtual environment is not activated."
+              exit 1
+            fi
+
+            chmod +x ./bin/install_kubectl.sh
+            sh ./bin/install_kubectl.sh
+
+
+      # save the FILES in folders .devops-capstone and ./bin to the 'cache'
+      - save_cache:
+          paths:
+            - ./.devops-capstone 
+            - ./bin
+          key: v1-dependencies-{{ checksum "hello_app/requirements.txt" }}
+
+
+
+          # docker run ${CONTAINER_NAME}:${VERSION} ls -ls 
+          # docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+          # docker push $DOCKER_LOGIN/hello-app:latest
+          # $DOCKER_LOGIN, this is a 'environment variable' in circleci.com
+          # https://app.circleci.com/settings/project
+
+            
+            
+
+
+workflows:
+  default:
+    jobs:
+      - Init
+
+          
+
+        
