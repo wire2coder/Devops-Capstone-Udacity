@@ -155,6 +155,24 @@ jobs:
             echo "ls: $(ls -la)"
             docker images
 
+      - run:
+          name: Upload the Dockerfile to DockerHub
+          command: |
+            source .devops-capstone/bin/activate      
+
+            if [ -n "$VIRTUAL_ENV" ]; then
+              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
+            else
+              echo "Virtual environment is not activated."
+              exit 1
+            fi
+
+            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+            docker push ${CIRCLE_USERNAME}/hello_app:latest
+            # $DOCKER_LOGIN, this is a 'environment variable' in circleci.com
+            # https://app.circleci.com/settings/project
+
+
 
       # save the FILES in folders .devops-capstone and ./bin to the 'cache'
       # - save_cache:
@@ -171,8 +189,6 @@ jobs:
           # https://app.circleci.com/settings/project
 
             
-            
-
 
 workflows:
   default:
