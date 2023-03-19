@@ -138,11 +138,10 @@ jobs:
             
             ./bin/hadolint ./hello_app/Dockerfile
       
-      - set_up_remote_docker:
-          version: 20.10.5
-
       - run:
           name: Building the Dockerfile          
+          - set_up_remote_docker:
+            version: 20.10.5
           command: |
             source .devops-capstone/bin/activate      
 
