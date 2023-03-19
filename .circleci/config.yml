@@ -1,9 +1,6 @@
 version: 2.1
 
-executors:
-  docker-executor:
-    docker:
-      - image: circleci/python:3.7
+
 
 # so, there will be a 'virtual machine' running in side circleci
 # .circleci\config.yml >> Makefile
@@ -21,16 +18,14 @@ commands:
       - run: echo "<< parameters.input1 >>"
           
           
-
-
 # a reusable 'docker thing' 
 orbs:
   docker: circleci/docker@1.5.0
 
 jobs:
   Init:
-    docker:
-      - image: python:3.7.4
+    machine: # 'machine executor'
+      image: ubuntu-2204:2022.04.2
     
     steps:
       # 'download' the code from github into the 'virtual machine' in circleci
@@ -138,25 +133,7 @@ jobs:
             
             ./bin/hadolint ./hello_app/Dockerfile
       
-      - run:
-          name: Building the Dockerfile          
-          set_up_remote_docker:
-            version: 20.10.5
-          command: |
-            source .devops-capstone/bin/activate      
-
-            if [ -n "$VIRTUAL_ENV" ]; then
-              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
-            else
-              echo "Virtual environment is not activated."
-              exit 1
-            fi
-            
-            pwd
-            echo "ls: $(ls -la)"
-            docker build -t ${CIRCLE_USERNAME}/hello_app:latest .
-            echo "============================="
-            echo "ls: $(ls -la)"
+ 
 
 
       # save the FILES in folders .devops-capstone and ./bin to the 'cache'
