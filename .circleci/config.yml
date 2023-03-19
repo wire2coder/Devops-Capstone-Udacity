@@ -28,9 +28,7 @@ orbs:
   docker: circleci/docker@1.5.0
 
 jobs:
-  Init:
-    docker:
-      - image: python:3.7.4
+  Init:    
     
     steps:
       # 'download' the code from github into the 'virtual machine' in circleci
@@ -138,8 +136,10 @@ jobs:
             
             ./bin/hadolint ./hello_app/Dockerfile
       
-      - run:
+      - run:          
           name: Building the Dockerfile
+          - setup_remote_docker
+          executor: docker-executor
           command: |
             source .devops-capstone/bin/activate      
 
@@ -153,7 +153,7 @@ jobs:
             docker build -t ${CIRCLE_USERNAME}hello_app:latest .
             echo "============================="
             echo "ls: $(ls -la)"
-            
+
 
       # save the FILES in folders .devops-capstone and ./bin to the 'cache'
       # - save_cache:
