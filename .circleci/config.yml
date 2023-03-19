@@ -133,7 +133,24 @@ jobs:
             
             ./bin/hadolint ./hello_app/Dockerfile
       
- 
+      - run:
+          name: Building the Dockerfile             
+          command: |
+            source .devops-capstone/bin/activate      
+
+            if [ -n "$VIRTUAL_ENV" ]; then
+              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
+            else
+              echo "Virtual environment is not activated."
+              exit 1
+            fi
+            
+            pwd
+            echo "ls: $(ls -la)"
+            cd hello_app
+            docker build -t ${CIRCLE_USERNAME}/hello_app:latest .
+            echo "============================="
+            echo "ls: $(ls -la)"
 
 
       # save the FILES in folders .devops-capstone and ./bin to the 'cache'
