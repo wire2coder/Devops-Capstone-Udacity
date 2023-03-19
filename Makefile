@@ -13,3 +13,11 @@ install:
 	# Installing: shellcheck
 	./bin/install_shellcheck.sh
 	
+	# Installing: hadolint
+	./bin/install_hadolint.sh
+
+	# Installing: kubectl
+	./bin/install_kubectl.sh
+	
+	# Installing: eksctl
+	./bin/install_eksctl.sh

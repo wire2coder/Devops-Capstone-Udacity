@@ -76,7 +76,11 @@ jobs:
 
 
             chmod +x ./bin/install_shellcheck.sh
+            chmod +x ./bin/install_hadolint.sh
+            chmod +x ./bin/install_eksctl.sh
+
             make install
+            echo "============================="      
             echo "============================="      
             
       
@@ -117,37 +121,6 @@ jobs:
 
             pwd
             ./bin/shellcheck -Cauto -a ./bin/*.sh
-
-      - run:
-          name: Install Hadolint
-          command: |
-            source .devops-capstone/bin/activate      
-
-            if [ -n "$VIRTUAL_ENV" ]; then
-              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
-            else
-              echo "Virtual environment is not activated."
-              exit 1
-            fi
-
-            chmod +x ./bin/install_hadolint.sh
-            sh ./bin/install_hadolint.sh
-
-      - run:
-          name: Install kubectl
-          command: |
-            source .devops-capstone/bin/activate      
-
-            if [ -n "$VIRTUAL_ENV" ]; then
-              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
-            else
-              echo "Virtual environment is not activated."
-              exit 1
-            fi
-
-            chmod +x ./bin/install_kubectl.sh
-            sh ./bin/install_kubectl.sh
-
 
       # save the FILES in folders .devops-capstone and ./bin to the 'cache'
       - save_cache:
