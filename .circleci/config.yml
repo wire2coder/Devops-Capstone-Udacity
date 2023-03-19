@@ -35,16 +35,16 @@ jobs:
     steps:
       # 'download' the code from github into the 'virtual machine' in circleci
       - checkout
-      - restore_cache:
-          keys: 
-            # use the 'saved stuff' in the 'cache' if the 'checksum' of the 'requirements.txt' is the same
-            - v1-dependencies-{{ checksum "hello_app/requirements.txt" }}
-          
-          if: |
-            # Check if cache exists and is not expired
-            steps.cache_setup.outputs.cache-found == 'true'
-            ls -la $HOME/.cache/
 
+      # - restore_cache:
+          # keys: 
+            # use the 'saved stuff' in the 'cache' if the 'checksum' of the 'requirements.txt' is the same
+            # - v1-dependencies-{{ checksum "hello_app/requirements.txt" }}
+          
+          # if: |
+            # Check if cache exists and is not expired
+            # steps.cache_setup.outputs.cache-found == 'true'
+            # ls -la $HOME/.cache/
 
       # - run:
           # name: View contents of cache
@@ -62,7 +62,7 @@ jobs:
 
 
       - run:
-          name: Install Shellcheck
+          name: Installing Shell script Linters
           # echo "${VERSION} <<< so this is how you echo inside circleci, not $VERSION"
           command: |    
             source .devops-capstone/bin/activate      
@@ -123,12 +123,28 @@ jobs:
             pwd
             ./bin/shellcheck -Cauto -a ./bin/*.sh
 
+      - run:
+          name: Linitng the Dockerfile
+          command: |
+            source .devops-capstone/bin/activate      
+
+            if [ -n "$VIRTUAL_ENV" ]; then
+              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
+            else
+              echo "Virtual environment is not activated."
+              exit 1
+            fi
+
+            
+            ./bin/hadolint ./hello_app/Dockerfile
+      
+      
+
       # save the FILES in folders .devops-capstone and ./bin to the 'cache'
-      - save_cache:
-          paths:
-            - ./.devops-capstone 
-            - ./bin
-          key: v1-dependencies-{{ checksum "hello_app/requirements.txt" }}
+      # - save_cache:
+          # paths:
+            # - ./.devops-capstone             
+          # key: v1-dependencies-{{ checksum "hello_app/requirements.txt" }}
 
 
 

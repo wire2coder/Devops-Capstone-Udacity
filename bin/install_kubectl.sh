@@ -10,4 +10,5 @@ test -e ./bin/${COMMAND} ||
         chmod +x ./bin/${COMMAND}
     }
 
-echo "./bin/${COMMAND}: $(./bin/${COMMAND} version --client)"
+# echo "./bin/${COMMAND}: $(./bin/${COMMAND} version --client)"
+echo "./bin/${COMMAND}: $(./bin/${COMMAND} version --short)"
