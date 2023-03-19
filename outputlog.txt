@@ -1,0 +1,131 @@
+PS C:\> eksctl create cluster --config-file=cluster1.yml
+2023-03-19 09:06:05 [ℹ]  eksctl version 0.134.0
+2023-03-19 09:06:05 [ℹ]  using region us-east-1
+2023-03-19 09:06:06 [ℹ]  setting availability zones to [us-east-1c us-east-1a]
+2023-03-19 09:06:06 [ℹ]  subnets for us-east-1c - public:192.168.0.0/19 private:192.168.64.0/19
+2023-03-19 09:06:06 [ℹ]  subnets for us-east-1a - public:192.168.32.0/19 private:192.168.96.0/19
+2023-03-19 09:06:06 [ℹ]  nodegroup "ng-1" will use "ami-0db1d52047cb9771f" [AmazonLinux2/1.25]
+2023-03-19 09:06:06 [ℹ]  using EC2 key pair "capkey2"
+2023-03-19 09:06:06 [ℹ]  using Kubernetes version 1.25
+2023-03-19 09:06:06 [ℹ]  creating EKS cluster "jimmy1" in "us-east-1" region with un-managed nodes
+2023-03-19 09:06:06 [ℹ]  1 nodegroup (ng-1) was included (based on the include/exclude rules)
+2023-03-19 09:06:06 [ℹ]  will create a CloudFormation stack for cluster itself and 1 nodegroup stack(s)
+2023-03-19 09:06:06 [ℹ]  will create a CloudFormation stack for cluster itself and 0 managed nodegroup stack(s)
+2023-03-19 09:06:06 [ℹ]  if you encounter any issues, check CloudFormation console or try 'eksctl utils describe-stacks --region=us-east-1 --cluster=jimmy1'
+2023-03-19 09:06:06 [ℹ]  Kubernetes API endpoint access will use default of {publicAccess=true, privateAccess=false} for cluster "jimmy1" in "us-east-1"
+2023-03-19 09:06:06 [ℹ]  CloudWatch logging will not be enabled for cluster "jimmy1" in "us-east-1"
+2023-03-19 09:06:06 [ℹ]  you can enable it with 'eksctl utils update-cluster-logging --enable-types={SPECIFY-YOUR-LOG-TYPES-HERE (e.g. all)} --region=us-east-1 --cluster=jimmy1'
+2023-03-19 09:06:06 [ℹ]
+2 sequential tasks: { create cluster control plane "jimmy1",
+    2 sequential sub-tasks: {
+        4 sequential sub-tasks: {
+            wait for control plane to become ready,
+            associate IAM OIDC provider,
+            2 sequential sub-tasks: {
+                create IAM role for serviceaccount "kube-system/aws-node",
+                create serviceaccount "kube-system/aws-node",
+            },
+            restart daemonset "kube-system/aws-node",
+        },
+        create nodegroup "ng-1",
+    }
+}
+2023-03-19 09:06:06 [ℹ]  building cluster stack "eksctl-jimmy1-cluster"
+2023-03-19 09:06:07 [ℹ]  deploying stack "eksctl-jimmy1-cluster"
+2023-03-19 09:06:37 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:07:07 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:08:07 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:09:07 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:10:08 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:11:08 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:12:08 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:13:08 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:14:08 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:15:08 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:16:08 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:17:09 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:18:09 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-cluster"
+2023-03-19 09:20:10 [ℹ]  building iamserviceaccount stack "eksctl-jimmy1-addon-iamserviceaccount-kube-system-aws-node"
+2023-03-19 09:20:11 [ℹ]  deploying stack "eksctl-jimmy1-addon-iamserviceaccount-kube-system-aws-node"
+2023-03-19 09:20:11 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-addon-iamserviceaccount-kube-system-aws-node"
+2023-03-19 09:20:41 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-addon-iamserviceaccount-kube-system-aws-node"
+2023-03-19 09:20:41 [ℹ]  serviceaccount "kube-system/aws-node" already exists
+2023-03-19 09:20:41 [ℹ]  updated serviceaccount "kube-system/aws-node"
+2023-03-19 09:20:41 [ℹ]  daemonset "kube-system/aws-node" restarted
+2023-03-19 09:20:41 [ℹ]  building nodegroup stack "eksctl-jimmy1-nodegroup-ng-1"
+2023-03-19 09:20:42 [ℹ]  deploying stack "eksctl-jimmy1-nodegroup-ng-1"
+2023-03-19 09:20:42 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-nodegroup-ng-1"
+2023-03-19 09:21:12 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-nodegroup-ng-1"
+2023-03-19 09:22:02 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-nodegroup-ng-1"
+2023-03-19 09:22:32 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-nodegroup-ng-1"
+2023-03-19 09:23:32 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-nodegroup-ng-1"
+2023-03-19 09:25:16 [ℹ]  waiting for CloudFormation stack "eksctl-jimmy1-nodegroup-ng-1"
+2023-03-19 09:25:17 [ℹ]  waiting for the control plane to become ready
+2023-03-19 09:25:17 [✔]  saved kubeconfig as "C:\\Users\\username\\.kube\\config"
+2023-03-19 09:25:17 [ℹ]  no tasks
+2023-03-19 09:25:17 [✔]  all EKS cluster resources for "jimmy1" have been created
+2023-03-19 09:25:17 [ℹ]  adding identity "arn:aws:iam::494368426540:role/eksctl-jimmy1-nodegroup-ng-1-NodeInstanceRole-1Q132ZLIW0UQN" to auth ConfigMap
+2023-03-19 09:25:17 [ℹ]  nodegroup "ng-1" has 0 node(s)
+2023-03-19 09:25:17 [ℹ]  waiting for at least 2 node(s) to become ready in "ng-1"
+2023-03-19 09:26:14 [ℹ]  nodegroup "ng-1" has 2 node(s)
+2023-03-19 09:26:14 [ℹ]  node "ip-192-168-18-222.ec2.internal" is ready
+2023-03-19 09:26:14 [ℹ]  node "ip-192-168-34-63.ec2.internal" is ready
+2023-03-19 09:26:17 [ℹ]  kubectl command should work with "C:\\Users\\username\\.kube\\config", try 'kubectl get nodes'
+2023-03-19 09:26:17 [✔]  EKS cluster "jimmy1" in "us-east-1" region is ready
+
+> kubectl get nodes
+NAME                             STATUS   ROLES    AGE    VERSION
+ip-192-168-18-222.ec2.internal   Ready    <none>   116s   v1.25.6-eks-48e63af
+ip-192-168-34-63.ec2.internal    Ready    <none>   113s   v1.25.6-eks-48e63af
+
+
+> cat .\.kube\config
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvakNDQWVhZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJek1ETXhPVEV6TVRJeU1Wb1hEVE16TURNeE5qRXpNVEl5TVZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSzRsCmRqVEFySjdhLzl1b0t1MmpxUlBEenRFOTlqUHNVNThTY2NzU0xxQ01KVWdRbVBYZUs3eTYyaFl6Q2tOQTlldFYKcUpyQ1NHVjVpbEliLzk5RytsU0hpRXZidFk1R2FmZXFuWHpjdkhBeTV0bDAzZkxIRkR5bTB4Sy9SbWJyN3B1WApUNndYVTdud29zNXdmczZDNUxTd3NZQTFQclA1ZFFPS0RuTFNSeC9NNnlmQlhTY014aGJ5dHphdktBa21KeVIzCkoxZjR4c3BwZFJ1N2dxbXJ6NUpwbTZPcVEyclowN1pqcGR3T2JGUG1MQkttdUkycU1RYzBqbUkvblRMUmpvRkgKaDYra3dRYXVRVlZ0T2lhTU8vS2YyTDJ5MmgzRjNXMjdNSVA1eWcwa01GYitpVllSYkRRVzROaWxqVjVnT3d3Mwo5MTNoOS9yRTBTbHN4eThobjZVQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZHNWVDUDVNOG13dlVTWXd5azlIcEJxbjhRcm9NQlVHQTFVZEVRUU8KTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBSnBwOVM1akpyd3VYUTdnODljLwpnR0FLMndMMUV1TWk1U3dWbDNPNTVLb0ZjTldUR1RWUmVweStjOTQ0V3l6ZUY5MVNwK1FsMFV6aWVtbHZqNUVrCktYN3JxL3JVNkRvNVJzUFRHN2pQVmhMZXpWU09NdC83QVhNb2FraU1KNWZ3djFrVCs1MjVxajFnWFF2b2xUaXgKZm1vZ1hWMCs4ZnRKQjNNNENuYXBRckRUSU9nRDBGY0NRUE54MzN0Zk5QMWRhblM0SStZczh6Rlprb3B3d2djUwpoRkVKWU9jaFFGQ0EycFhvaVVDMHJ0U2ErM0JHQnk2dmZYM21hancxc0duTlRZK21pSU1mcHl6MVg2dEQ0elRSCnBscmN4dFB5ck1iVWI5S0ttWWtrczhxZTU4M3RqNXIxY2xGWkJ4cGxBYUhjY09KMDREU1RXSzcyRWM3RnlPQlIKVG9BPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    server: https://356B5DAE03C32D4E49A5C522C69F66B6.gr7.us-east-1.eks.amazonaws.com
+  name: jimmy1.us-east-1.eksctl.io
+contexts:
+- context:
+    cluster: jimmy1.us-east-1.eksctl.io
+    user: usercap1@jimmy1.us-east-1.eksctl.io
+  name: usercap1@jimmy1.us-east-1.eksctl.io
+current-context: usercap1@jimmy1.us-east-1.eksctl.io
+kind: Config
+preferences: {}
+users:
+- name: usercap1@jimmy1.us-east-1.eksctl.io
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - eks
+      - get-token
+      - --cluster-name
+      - jimmy1
+      - --region
+      - us-east-1
+      command: aws
+      env:
+      - name: AWS_STS_REGIONAL_ENDPOINTS
+        value: regional
+      provideClusterInfo: false
+
+
+PS C:\DEVOPS\pp11> kubectl get deployments
+>>
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+deploy1   1/1     1            1           41s
+PS C:\DEVOPS\pp11> kubectl get pods
+NAME                       READY   STATUS    RESTARTS   AGE
+deploy1-59d6f84d64-lmq7r   1/1     Running   0          56s
+PS C:\DEVOPS\pp11>
+
+PS C:\DEVOPS\pp11> kubectl expose deployment deploy1 --type=LoadBalancer --port=80
+service/deploy1 exposed
+
+pp11> kubectl get services
+NAME         TYPE           CLUSTER-IP     EXTERNAL-IP                                                              PORT(S)        AGE
+deploy1      LoadBalancer   10.100.7.137   a7c3d50c25393409a8329123ded2f37d-938570170.us-east-1.elb.amazonaws.com   80:31502/TCP   114s
+kubernetes   ClusterIP      10.100.0.1     <none>

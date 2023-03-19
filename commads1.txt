@@ -31,6 +31,13 @@ Set-ExecutionPolicy Bypass -Scope Process
 
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
+# use chocolatey to install eksctl
+choco install eksctl
+
+# https://community.chocolatey.org/packages/kubernetes-cli
+# use chocolatey to install kubectl
+choco install kubernetes-cli
+
 We are setting up the Chocolatey package repository.
 The packages themselves go to 'C:\ProgramData\chocolatey\lib'
   (i.e. C:\ProgramData\chocolatey\lib\yourPackageName).
@@ -72,3 +79,55 @@ docker run -d -p 4444:80 dtest
 # look at files INSIDE the container
 sudo docker run dtest ls -ls 
 sudo docker run dtest ls -ls /usr/local/lib
+
+
+install eksctl
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+
+Move the extracted binary to /usr/local/bin
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+
+
+
+eksctl create cluster \
+--name luster4 \
+--version 1.25 \
+--region us-east-1 \
+--nodegroup-name group1 \
+--node-type t2.micro \
+--nodes 3
+
+eksctl create cluster --name cluster4 --version 1.25 --region us-east-1 --nodegroup-name group1 --node-type t2.micro --nodes 3
+
+
+
+kubectl get nodes
+
+eksctl delete cluster --name test-cluster
+
+
+install kubectl
+https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+download checksum file (optional)
+curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+
+install kubectl (move file to /usr/local/bin folder)
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+eksctl create cluster --config-file=cluster1.yml
+eksctl delete cluster --region=us-east-1 --name=whatnow
+
+kubectl version --client # this is NOT working
+
+
+dogger1/hello_app:latest
+kubectl create deployment deploy1 --image=dogger1/hello_app:latest 
+
+kubectl get deployments
+kubectl get pods

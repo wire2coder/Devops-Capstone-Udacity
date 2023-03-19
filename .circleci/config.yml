@@ -194,7 +194,7 @@ workflows:
   default:
     jobs:
       # - Init
-      - makeAwsVM
+      # - makeAwsVM HERE
           
 
         
