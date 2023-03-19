@@ -77,6 +77,7 @@ jobs:
 
             chmod +x ./bin/install_shellcheck.sh
             chmod +x ./bin/install_hadolint.sh
+            chmod +x ./bin/install_kubectl.sh
             chmod +x ./bin/install_eksctl.sh
 
             make install
