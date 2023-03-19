@@ -140,7 +140,7 @@ jobs:
       
       - run:
           name: Building the Dockerfile          
-          - set_up_remote_docker:
+          set_up_remote_docker:
             version: 20.10.5
           command: |
             source .devops-capstone/bin/activate      
