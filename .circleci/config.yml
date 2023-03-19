@@ -151,6 +151,9 @@ jobs:
             docker build -t ${CIRCLE_USERNAME}/hello_app:latest .
             echo "============================="
             echo "ls: $(ls -la)"
+            cd ..
+            echo "ls: $(ls -la)"
+            docker images
 
 
       # save the FILES in folders .devops-capstone and ./bin to the 'cache'
