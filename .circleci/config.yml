@@ -148,7 +148,7 @@ jobs:
             pwd
             echo "ls: $(ls -la)"
             cd hello_app
-            docker build -t ${CIRCLE_USERNAME}/hello_app:latest .
+            docker build -t ${DOCKER_LOGIN}/hello_app:latest .
             echo "============================="
             echo "ls: $(ls -la)"
             cd ..
@@ -168,7 +168,7 @@ jobs:
             fi
 
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-            docker push ${CIRCLE_USERNAME}/hello_app:latest
+            docker push ${DOCKER_LOGIN}/hello_app:latest
             # $DOCKER_LOGIN, this is a 'environment variable' in circleci.com
             # https://app.circleci.com/settings/project
 
