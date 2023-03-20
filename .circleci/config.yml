@@ -245,13 +245,21 @@ jobs:
           command: |
             kubectl expose deployment deploy1 --type=LoadBalancer --port=80 
             echo "============================="
+      
+      - run: 
+          name: Get the (load balancer) URL from AWS
+          command: |
+            kubectl get services             
+            echo "============================="
 
 
 workflows:
   default:
     jobs:
-      # - Init
-      - createEksCluster
+      - Init
+      - createEksCluster:
+          requires: [Init]
+          
       
           
           
