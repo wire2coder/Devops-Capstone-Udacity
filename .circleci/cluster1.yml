@@ -3,7 +3,7 @@ kind: ClusterConfig
 
 
 metadata:
-  name: ddd111
+  name: ccc333
   region: us-east-1
 
 iam:

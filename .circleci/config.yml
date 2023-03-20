@@ -1,7 +1,5 @@
 version: 2.1
 
-
-
 # so, there will be a 'virtual machine' running in side circleci
 # .circleci\config.yml >> Makefile
 
@@ -204,24 +202,6 @@ jobs:
             echo "============================="      
 
       - run:
-          name: Create EKS Cluster in AWS
-          command: |
-            eksctl create cluster --config-file=./.circleci/cluster1.yml
-
-
-
-  verifyEksCluster:
-    machine: # 'machine executor'
-      image: ubuntu-2204:2022.04.2
-
-    steps:
-      - checkout
-
-      - add_ssh_keys:
-          fingerprints:
-            - "1f:b8:0f:98:06:b7:ae:41:e7:99:e5:89:7d:27:f0:32"
-
-      - run:
           name: Install kubectl
           command: |
             curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && \
@@ -230,6 +210,11 @@ jobs:
 
             kubectl version --client
             echo "============================="
+
+      - run:
+          name: Create EKS Cluster in AWS
+          command: |
+            eksctl create cluster --config-file=./.circleci/cluster1.yml
 
       - run:
           name: Verify EKS Cluster in AWS
@@ -243,8 +228,8 @@ workflows:
     jobs:
       # - Init
       - createEksCluster
-      - verifyEksCluster:
-          requires: [createEksCluster]
+      
+          
           
           
 
