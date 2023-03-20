@@ -148,3 +148,4 @@ kubectl get pods
 
 
 https://medium.com/@jerome.decoster/kubernetes-eks-blue-green-deployment-99d611c596ad
+https://knowledge.udacity.com/questions/687620
