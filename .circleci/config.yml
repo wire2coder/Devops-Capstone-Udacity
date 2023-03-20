@@ -202,6 +202,14 @@ jobs:
             - "1f:b8:0f:98:06:b7:ae:41:e7:99:e5:89:7d:27:f0:32"
 
       - run:
+          name: Install kubectl
+          command: |
+            curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && \
+            chmod +x kubectl && \
+            sudo mv kubectl /usr/local/bin/
+
+
+      - run:
           name: Creating virtual environment and activating it
           command: |
             python3 -m venv .devops-capstone
