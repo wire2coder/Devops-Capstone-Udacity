@@ -1,8 +1,12 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
+environment:
+  - NAME1: "{{ lookup('env', 'CIRCLE_WORKFLOW_ID')[:7] }}"
+
+
 metadata:
-  name: ${CIRCLE_WORKFLOW_ID:0:7}
+  name: ${NAME1}
   region: us-east-1
 
 iam:
