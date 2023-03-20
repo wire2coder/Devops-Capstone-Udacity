@@ -7,6 +7,13 @@ https://circleci.com/docs/reusing-config/
 Canonical, Ubuntu, 22.04 LTS, amd64 jammy image build on 2023-02-08
 ami-0557a15b87f6559cf
 
+# Circleci 'environment' variables
+AWS_ACCESS_KEY_ID	xxxxRM5N	
+AWS_DEFAULT_REGION	xxxxst-1	
+AWS_SECRET_ACCESS_KEY	xxxxr76R	
+Additional SSH Keys
+
+
 elastic IP:
 eipalloc-0d47f3704a38f1cd0
 44.215.37.104

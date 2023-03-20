@@ -197,6 +197,10 @@ jobs:
       # 'download' the code from github into the 'virtual machine' in circleci
       - checkout
 
+      - add_ssh_keys:
+         fingerprints:
+            - "1f:b8:0f:98:06:b7:ae:41:e7:99:e5:89:7d:27:f0:32"
+
       - run:
           name: Creating virtual environment and activating it
           command: |
@@ -214,10 +218,11 @@ jobs:
             echo "ls: $(ls -la)"            
             echo "ls ./bin: $(ls -la ./bin)"
             echo "ls ./hello_app: $(ls -la ./hello_app)"
+
+            kubectl get nodes
             echo "============================="
-            echo "============================="
-            echo "============================="
-            echo "============================="
+
+            
 
 
             
