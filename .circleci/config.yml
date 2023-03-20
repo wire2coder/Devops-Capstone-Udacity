@@ -256,9 +256,9 @@ jobs:
 workflows:
   default:
     jobs:
-      - Init
-      - createEksCluster:
-          requires: [Init]
+      # - Init
+      # - createEksCluster:
+          # requires: [Init]
           
       
           
