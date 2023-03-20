@@ -208,6 +208,13 @@ jobs:
             chmod +x kubectl && \
             sudo mv kubectl /usr/local/bin/
 
+      - run:
+          name: Install eksctl
+          command: |
+            curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | \
+            tar xz -C /tmp && \
+            sudo mv /tmp/eksctl /usr/local/bin/
+
 
       - run:
           name: Creating virtual environment and activating it
@@ -225,9 +232,10 @@ jobs:
             pwd
             echo "ls: $(ls -la)"            
             echo "ls ./bin: $(ls -la ./bin)"
+            echo "ls ./usr/local/bin: $(ls -la ./usr/local/bin)"
             echo "ls ./hello_app: $(ls -la ./hello_app)"
 
-            kubectl get nodes
+            # kubectl get nodes
             echo "============================="
 
             
