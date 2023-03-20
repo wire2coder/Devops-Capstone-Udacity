@@ -38,6 +38,13 @@ choco install eksctl
 # use chocolatey to install kubectl
 choco install kubernetes-cli
 
+# install circleci with chocolatey
+choco install circleci-cli
+circleci version
+circleci config validate
+
+
+
 We are setting up the Chocolatey package repository.
 The packages themselves go to 'C:\ProgramData\chocolatey\lib'
   (i.e. C:\ProgramData\chocolatey\lib\yourPackageName).
@@ -131,3 +138,4 @@ kubectl create deployment deploy1 --image=dogger1/hello_app:latest
 
 kubectl get deployments
 kubectl get pods
+
