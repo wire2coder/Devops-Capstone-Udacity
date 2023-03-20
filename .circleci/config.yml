@@ -210,6 +210,10 @@ jobs:
               exit 1
             fi
 
+            pwd
+            echo "ls: $(ls -la)"            
+            echo "ls ./bin: $(ls -la ./bin)"
+            echo "ls ./hello_app: $(ls -la ./hello_app)"
             echo "============================="
             echo "============================="
             echo "============================="
