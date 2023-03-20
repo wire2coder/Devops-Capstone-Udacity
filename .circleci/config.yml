@@ -181,15 +181,7 @@ jobs:
           # key: v1-dependencies-{{ checksum "hello_app/requirements.txt" }}
 
 
-
-          # docker run ${CONTAINER_NAME}:${VERSION} ls -ls 
-          # docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-          # docker push $DOCKER_LOGIN/hello-app:latest
-          # $DOCKER_LOGIN, this is a 'environment variable' in circleci.com
-          # https://app.circleci.com/settings/project
-
-
-  createCluster:
+  createEksCluster:
     machine: # 'machine executor'
       image: ubuntu-2204:2022.04.2
         
@@ -199,6 +191,34 @@ jobs:
 
       - add_ssh_keys:
          fingerprints:
+            - "1f:b8:0f:98:06:b7:ae:41:e7:99:e5:89:7d:27:f0:32"
+
+      - run:
+          name: Install eksctl
+          command: |
+            curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | \
+            tar xz -C /tmp && \
+            sudo mv /tmp/eksctl /usr/local/bin/
+            
+            eksctl version
+            echo "============================="      
+
+      - run:
+          name: Create EKS Cluster in AWS
+          command: |
+            eksctl create cluster --config-file=cluster1.yml
+
+
+
+  verifyEksCluster:
+    machine: # 'machine executor'
+      image: ubuntu-2204:2022.04.2
+
+    steps:
+      - checkout
+
+      - add_ssh_keys:
+          fingerprints:
             - "1f:b8:0f:98:06:b7:ae:41:e7:99:e5:89:7d:27:f0:32"
 
       - run:
@@ -212,50 +232,20 @@ jobs:
             echo "============================="
 
       - run:
-          name: Install eksctl
+          name: Verify EKS Cluster in AWS
           command: |
-            curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | \
-            tar xz -C /tmp && \
-            sudo mv /tmp/eksctl /usr/local/bin/
-            
-            eksctl version
-            echo "============================="
+            kubectl get nodes
+            echo "=============================" 
 
-
-
-
-      - run:
-          name: Creating virtual environment and activating it
-          command: |
-            python3 -m venv .devops-capstone
-            source .devops-capstone/bin/activate      
-
-            if [ -n "$VIRTUAL_ENV" ]; then
-              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
-            else
-              echo "Virtual environment is not activated."
-              exit 1
-            fi
-
-            pwd
-            echo "ls: $(ls -la)"            
-            echo "ls ./bin: $(ls -la ./bin)"
-            echo "ls ./usr/local/bin: $(ls -la /usr/local/bin)"
-            echo "ls ./hello_app: $(ls -la ./hello_app)"
-
-            # kubectl get nodes
-            echo "============================="
-
-            
-
-
-            
 
 workflows:
   default:
     jobs:
       # - Init
-      - createCluster
+      - createEksCluster
+      - verifyEksCluster:
+          requires: [createEksCluster]
+          
           
 
         
