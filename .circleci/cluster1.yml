@@ -3,7 +3,7 @@ kind: ClusterConfig
 
 
 metadata:
-  name: ggg333
+  name: mm44
   region: us-east-1
 
 iam:

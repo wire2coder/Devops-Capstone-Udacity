@@ -146,3 +146,5 @@ kubectl create deployment deploy1 --image=dogger1/hello_app:latest
 kubectl get deployments
 kubectl get pods
 
+
+https://medium.com/@jerome.decoster/kubernetes-eks-blue-green-deployment-99d611c596ad
