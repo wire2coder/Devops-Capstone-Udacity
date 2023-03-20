@@ -113,6 +113,8 @@ users:
       provideClusterInfo: false
 
 
+kubectl create deployment deploy1 --image=dogger1/hello_app:latest 
+
 PS C:\DEVOPS\pp11> kubectl get deployments
 >>
 NAME      READY   UP-TO-DATE   AVAILABLE   AGE

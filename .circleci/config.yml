@@ -222,6 +222,30 @@ jobs:
             kubectl get nodes
             echo "=============================" 
 
+      - run:
+          name: Deploy the Dockerfile from Docker.com to EKS Cluster in AWS
+          command: |
+            kubectl create deployment deploy1 --image=${DOCKER_LOGIN}/hello_app:latest
+            echo "============================="
+
+      - run:
+          name: List all the 'Deployments' in the EKS Cluster in AWS
+          command: |
+            kubectl get deployments
+            echo "============================="
+
+      - run:
+          name: List all the 'Pods' in the EKS Cluster in AWS
+          command: |
+            kubectl get pods
+            echo "============================="          
+
+      - run:
+          name: (Expose) the 'Pods (containers running together)' in the EKS Cluster in AWS
+          command: |
+            kubectl expose deployment deploy1 --type=LoadBalancer --port=80 
+            echo "============================="
+
 
 workflows:
   default:
