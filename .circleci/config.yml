@@ -172,7 +172,7 @@ jobs:
             # $DOCKER_LOGIN, this is a 'environment variable' in circleci.com
             # https://app.circleci.com/settings/project
 
-
+      
 
       # save the FILES in folders .devops-capstone and ./bin to the 'cache'
       # - save_cache:
@@ -188,13 +188,41 @@ jobs:
           # $DOCKER_LOGIN, this is a 'environment variable' in circleci.com
           # https://app.circleci.com/settings/project
 
+
+  createCluster:
+    machine: # 'machine executor'
+      image: ubuntu-2204:2022.04.2
+        
+    steps:
+      # 'download' the code from github into the 'virtual machine' in circleci
+      - checkout
+
+      - run:
+          name: Creating virtual environment and activating it
+            command: |
+              python3 -m venv .devops-capstone
+              source .devops-capstone/bin/activate      
+
+            if [ -n "$VIRTUAL_ENV" ]; then
+              echo "Virtual environment name: $(basename $VIRTUAL_ENV)"
+            else
+              echo "Virtual environment is not activated."
+              exit 1
+            fi
+
+            echo "============================="
+            echo "============================="
+            echo "============================="
+            echo "============================="
+
+
             
 
 workflows:
   default:
     jobs:
       # - Init
-      # - makeAwsVM HERE
+      - createCluster
           
 
         
