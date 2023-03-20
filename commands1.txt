@@ -94,6 +94,11 @@ docker run -d -p 4444:80 dtest
 sudo docker run dtest ls -ls 
 sudo docker run dtest ls -ls /usr/local/lib
 
+# upload 'docker image' to docker.com
+sudo docker login
+docker push dogger1/test_app:1.0.0
+docker push dogger1/test_app:2.0.0
+
 
 install eksctl
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
