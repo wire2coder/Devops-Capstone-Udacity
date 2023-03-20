@@ -206,7 +206,7 @@ jobs:
       - run:
           name: Create EKS Cluster in AWS
           command: |
-            eksctl create cluster --config-file=cluster1.yml
+            eksctl create cluster --config-file=./.circleci/cluster1.yml
 
 
 
