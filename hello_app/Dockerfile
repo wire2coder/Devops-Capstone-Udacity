@@ -4,7 +4,7 @@ FROM python:3.7-slim
 LABEL author="Terry S"
 
 # set the working directory in the container to /app
-WORKDIR /appsdfsdfdfsdf#remove the junk
+WORKDIR /apps dfsdfdfsdf#remove the junk
 
 # copy 'something' to the working directory
 COPY . /app/
