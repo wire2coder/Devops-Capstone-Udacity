@@ -4,7 +4,7 @@ FROM python:3.7-slim
 LABEL author="Terry S"
 
 # set the working directory in the container to /app
-WORKDIR /apps dfsdfdfsdf#remove the junk
+WORKDIR /apps
 
 # copy 'something' to the working directory
 COPY . /app/
@@ -21,5 +21,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 80
 
 # Start up the 'container' with the command below
-CMD ["python", "hello.py"]
+CMD ["python", "hello.pysdfsdfsdf]
 
